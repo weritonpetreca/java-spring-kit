@@ -9,6 +9,7 @@ Configurações base para projetos Spring Boot profissionais. Este repositório 
     *   `.gitattributes`: Configuração de Safe CRLF/LF para consistência entre sistemas operacionais.
 *   **Build**:
     *   `gradle.properties`: Configurações de performance ajustadas para o Gradle.
+    *   `settings.gradle.kts`: Configuração de repositórios de plugins (Maven Central prioritário).
 *   **CI (Integração Contínua)**:
     *   `.github/workflows/ci-pipeline.yml`: Pipeline configurado para Java 21 com Cache do Gradle.
 *   **IDE**:
