@@ -1,0 +1,36 @@
+name: seu-app-dev
+
+services:
+  # 🗄️ Banco de Dados (PostgreSQL 16)
+  postgres:
+    image: postgres:16-alpine
+    container_name: postgres-dev
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: seu_app
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d seu_app"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # ☁️ Simulação AWS (LocalStack)
+  localstack:
+    image: localstack/localstack:latest
+    container_name: localstack-dev
+    ports:
+      - "4566:4566"            # Gateway Edge Port
+    environment:
+      - SERVICES=sqs,s3,sns    # Ative apenas o que for usar para economizar RAM
+      - DEBUG=1
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+
+volumes:
+  postgres_data:
